@@ -1,0 +1,5 @@
+SUCCESS: Sent termination signal to the process "开源矿工.exe" with PID 22124.
+SUCCESS: Sent termination signal to the process "开源矿工.exe" with PID 22124.
+SUCCESS: Sent termination signal to the process "开源矿工.exe" with PID 22124.
+SUCCESS: Sent termination signal to the process "开源矿工.exe" with PID 10632.
+SUCCESS: Sent termination signal to the process "开源矿工.exe" with PID 10632.
