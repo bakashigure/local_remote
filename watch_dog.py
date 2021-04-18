@@ -14,9 +14,11 @@ whnd=ctypes.windll.kernel32.GetConsoleWindow()
 ctypes.windll.user32.ShowWindow(whnd, 0)    
 ctypes.windll.kernel32.CloseHandle(whnd) 
 '''
+
 detect_interval = 1
 
-path = os.getcwd()
+path = os.getcwd()+'/Hint/'
+
 
 
 def isAlive() -> bool:
@@ -37,7 +39,7 @@ def isAlive() -> bool:
 
 try:
     print("start in 5s")
-    time.sleep(2)
+    time.sleep(5)
 
     class POINT(ctypes.Structure):
         _fields_ = [("x", ctypes.c_long),
@@ -70,37 +72,19 @@ try:
                 log = kill_process.read()
                 print(log)
                 print("try to kill..")
-                if len(log) == 0:
-                    continue
-                else:
-                    break
+                time.sleep(0.5)
                 #os.system("taskkill -im 开源矿工.exe")
                 log_path = path+"/log.txt"
                 with open(log_path, 'a') as f:
-                    f.write(str(log))
+                    content=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())+"   "+str(log) 
+                    f.write(str(content))
                 f.close()
+            os.system("taskkill /F /im watch_daemon.exe")
             os._exit(2)
 
-            '''
-            def getAllHwnd(hwnd, mouse):
-                if (
-                    win32gui.IsWindow(hwnd)
-                ):
-                    hwnd_title.update({hwnd: win32gui.GetWindowText(hwnd)})
-            win32gui.EnumWindows(getAllHwnd, 0)
-            for k,v in hwnd_title.items():
-                #print(v,"\n")
-                if v == "开源矿工挖矿端":
-                    print("found!")
-                    os.system("taskkill -im 开源矿工.exe")
-                    time.sleep(detect_interval)
-                    os.system("taskkill -im 开源矿工.exe")
-                    os._exit(2)
-            '''
-        # print(hwnd_title)
-    # os.system("pause")
 except Exception as e:
     error_log_path = path+"/error.txt"
     with open(error_log_path, 'w') as f:
-        f.write(str(e))
+        content=str(e)+"  "+time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) 
+        f.write(str(content))
     f.close()
