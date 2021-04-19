@@ -16,10 +16,7 @@ ctypes.windll.kernel32.CloseHandle(whnd)
 '''
 
 detect_interval = 1
-
 path = os.getcwd()+'/Hint/'
-
-
 
 def isAlive() -> bool:
     hwnd_title={}
@@ -37,10 +34,9 @@ def isAlive() -> bool:
         return False
 
 
-try:
+def Loop() -> None:
     print("start in 5s")
     time.sleep(5)
-
     class POINT(ctypes.Structure):
         _fields_ = [("x", ctypes.c_long),
                     ("y", ctypes.c_long)]
@@ -82,9 +78,13 @@ try:
             os.system("taskkill /F /im watch_daemon.exe")
             os._exit(2)
 
-except Exception as e:
-    error_log_path = path+"/error.txt"
-    with open(error_log_path, 'w') as f:
-        content=str(e)+"  "+time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) 
-        f.write(str(content))
-    f.close()
+
+while 1:
+    try:
+        Loop()
+    except Exception as e:
+        error_log_path = path+"/error.txt"
+        with open(error_log_path, 'w') as f:
+            content=str(e)+"  "+time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) 
+            f.write(str(content))
+            f.close()

@@ -15,7 +15,6 @@ def log(content):
     f.close()
 
 def loop():
-    time.sleep(2)
     pl = psutil.pids()
     try:
         for pid in pl:
@@ -33,10 +32,12 @@ ctypes.windll.kernel32.CloseHandle(whnd)
 
 print(path)
 while(1):
+    time.sleep(2)
     if loop()==False:
+        log("process exit, restart watchdog.\n")
         os.popen(path+'/'+"watch_dog.exe")
         time.sleep(3)
-        log("process exit.\n")
+
 
 
 
