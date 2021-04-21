@@ -58,10 +58,11 @@ def Loop() -> None:
             print("not moving, sleep\n")
         else:
             isMove = True
-            print("detect moving!\n")
-        # time.sleep(detect_interval)
-        # hwnd_title={}
-        exit_count = 0 # try 10 times
+            log_path = path+"/log.txt"
+            with open(log_path, 'a') as f:
+                content=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())+"   "+str("move detected!\n")
+                f.write(str(content))
+                f.close()
         if isMove:
             while(isAlive()):
                 kill_process = os.popen("taskkill -im 开源矿工.exe", 'r')
@@ -74,12 +75,12 @@ def Loop() -> None:
                 with open(log_path, 'a') as f:
                     content=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())+"   "+str(log) 
                     f.write(str(content))
-                f.close()
+                    f.close()
             os.system("taskkill /F /im watch_daemon.exe")
             os._exit(2)
 
 
-while 1:
+while True:
     try:
         Loop()
     except Exception as e:
