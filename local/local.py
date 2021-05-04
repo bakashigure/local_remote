@@ -33,7 +33,7 @@ def post(_url: str, _data: dict, _headers: dict = None) -> requests.models.Respo
 
     Args:
         _url (str): url.
-        _data (dict): data.
+        _data (dict): data. 
         _headers (dict): headers.
 
     Returns:
@@ -43,7 +43,7 @@ def post(_url: str, _data: dict, _headers: dict = None) -> requests.models.Respo
     return requests.post(_url, data=_data)
 
 
-def sc_post(_data: dict) -> requests.models.Response:
+def sc_post(send_key:str,_data: dict) -> requests.models.Response:
     """ServerChan`s post https://sct.ftqq.com/
 
     Example:
@@ -60,7 +60,7 @@ def sc_post(_data: dict) -> requests.models.Response:
             You can use `pushid` and `readkey` to check the push status,
             more at https://sct.ftqq.com/sendkey
     """
-    send_key = Secrets.send_key
+    #send_key = Secrets.send_key
     url = "https://sctapi.ftqq.com/{0}.send".format(send_key)
     return post(url, _data)
 
@@ -94,11 +94,18 @@ def move_detect(interval=1) -> bool:
         True for mouse moves, False for not moving.
 
     """
-    _pos1 = _position()
-    time.sleep(interval)
-    _pos2 = _position()
-    return False if _pos1 == _pos2 else True
-
+    try:
+        _pos1 = _position()
+        time.sleep(interval)
+        _pos2 = _position()
+        if _pos1==_pos2:
+            print("not moving")
+            return False
+        else:
+            print("moving!")
+            return True
+    except Exception as e:
+        print(e)
 
 def is_process_exist(process_name: str) -> bool:
     """Does the process exist or not
@@ -114,27 +121,39 @@ def is_process_exist(process_name: str) -> bool:
     for pid in pl:
         try:
             if psutil.Process(pid).name() == process_name:
-                return True
+                return pid
         except:
             pass
-    return False
+    return 0
 
-def log(path:str,file_name:str) ->None:
+
+
+def log(path:str,file_name:str,content:str) ->None:
     """Generate logs in current work directory
 
     Example:
         >>> log("/log","log.txt")
         cwd: D:/test
         this will create D:/test/log/log.txt
-
+    
+    Args:
+        path (str): path
+        file_name (str): file name
+    
+    Returns:
+        None
+    
     """
+    _cwd=os.getcwd()
+    file_path=_cwd+'/'+path+'/'+file_name
+    with open(file_path, 'a') as f:
+        _content=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())+"   "+str(content)+'\n' 
+        f.write(str(_content))
+        f.close()
+
 
 def main():
-    _data = {"title": "test2", "desp": "content"}
-    r = sc_post(_data)
-    print(r.text)
-    print(type(r))
-
+    pass
 
 if __name__ == "__main__":
     main()
