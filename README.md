@@ -1,2 +1,0 @@
-# minerbot
-&lt;&lt;&lt;
