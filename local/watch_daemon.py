@@ -2,7 +2,7 @@ import os
 import sys
 import psutil
 import time
-import ctypes
+import ctypes 
 
 path = os.getcwd()
 log_path=path+'/Hint/' +'daemon_log.txt'
