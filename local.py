@@ -11,6 +11,7 @@ from my_secrets import Secrets
 
 def invisible(_flag: bool) -> None:
     """Set console window invisible or not.
+       Use this to run app at backgroud.
 
     Args:
         _flag (bool): True for hide the console window, 
