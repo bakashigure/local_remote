@@ -1,3 +1,4 @@
+# -*- UTF-8 -*-
 import base64
 import ctypes
 import json
@@ -6,11 +7,6 @@ from io import BytesIO
 from flask import Flask, Request,request
 
 from PIL import Image, ImageGrab
-
-whnd = ctypes.windll.kernel32.GetConsoleWindow()
-ctypes.windll.user32.ShowWindow(whnd, 0)
-ctypes.windll.kernel32.CloseHandle(whnd)
-
 
 def get_full_screenshot() -> str:
     """Get an image that can be viewed in a browser.
